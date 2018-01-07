@@ -1,4 +1,4 @@
-//window.onload = function init() {
+window.onload = function init() {
 
     let search = document.createElement('input');
     document.body.appendChild(search);
@@ -32,12 +32,14 @@
                 if (userXHR.status !== 200 && userXHR.status !== 404) {
                     console.log("Something went wrong")
                 } else if (userXHR.status == 404) {
-                    let wrongUserName = document.createElement('li');
-                    list.appendChild(listItems);
-                    listItems.innerHTML = "Wrong User Name!"
+                    let wrongUserName = document.createElement("h2")
+                    document.body.appendChild(wrongUserName)
+                    wrongUserName.innerHTML = "Wrong User Name!"
                 } else {
                     console.log("Successfully loaded");
+
                     let repoList = document.getElementById('repoList');
+
                     while (repoList.firstChild) {
                         repoList.removeChild(repoList.firstChild);
                     }
@@ -85,6 +87,7 @@
         };
         userXHR.open('GET', repositoriesUrl, true);
         userXHR.send();
+        console.log()
     }
 
-//}
+}
