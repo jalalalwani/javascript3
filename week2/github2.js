@@ -79,6 +79,9 @@ window.onload = function init() {
                         }
 
                         commitsXHR.open('GET', 'https://api.github.com/repos/' + userName + '/' + userRepositories.name + '/commits', true);
+                        
+                        myXHR.setRequestHeader("Authorization", "Basic " + btoa("jalalalwani:yourToken");// this line is to solve the problem
+                                               // of the limit of authorised requests per hour, the tokenshould be secret in an separete file
                         commitsXHR.send();
                         console.log()
                     })
@@ -86,6 +89,7 @@ window.onload = function init() {
             }
         };
         userXHR.open('GET', repositoriesUrl, true);
+        myXHR.setRequestHeader("Authorization", "Basic " + btoa("jalalalwani:yourToken");
         userXHR.send();
         console.log()
     }
