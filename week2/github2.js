@@ -1,5 +1,5 @@
 window.onload = function init() {
-
+// here i am creating the html tags (input, button, ul) and append them to (body)
     let search = document.createElement('input');
     document.body.appendChild(search);
     search.setAttribute('type', 'search');
@@ -13,45 +13,45 @@ window.onload = function init() {
     let list = document.createElement('ul');
     document.body.appendChild(list);
     list.setAttribute('id', 'repoList')
-
+// creating the "enter" event so that the reqest could start either by pressing enter or by clicking on submit
     document.querySelector('#searchIn').addEventListener('keypress', function (enter) {
         var key = enter.which || enter.keyCode;
         if (key === 13) { githubUserSearch() }
     });
-
+// here is the button event
     button.addEventListener('click', githubUserSearch)
 
     function githubUserSearch() {
 
-        let userName = document.querySelector('#searchIn').value;
-        let userUrl = 'https://api.github.com/users/' + userName;
-        let repositoriesUrl = 'https://api.github.com/users/' + userName + '/repos';
+        let userName = document.querySelector('#searchIn').value; // assign the input value to a variable
+        let userUrl = 'https://api.github.com/users/' + userName; // add the previuos variable to the links we need to get the userinfo from
+        let repositoriesUrl = 'https://api.github.com/users/' + userName + '/repos';// the link to access the repos
         let userXHR = new XMLHttpRequest();
         userXHR.onreadystatechange = () => {
+            // checking the status of the request
             if (userXHR.readyState === XMLHttpRequest.DONE) {
                 if (userXHR.status !== 200 && userXHR.status !== 404) {
                     console.log("Something went wrong")
-                } else if (userXHR.status == 404) {
+                } else if (userXHR.status == 404) { // here to check if the username exist or not
                     let wrongUserName = document.createElement("h2")
                     document.body.appendChild(wrongUserName)
                     wrongUserName.innerHTML = "Wrong User Name!"
                 } else {
                     console.log("Successfully loaded");
-
+                    // this step to clear the previuos search results without refreshing
                     let repoList = document.getElementById('repoList');
-
                     while (repoList.firstChild) {
                         repoList.removeChild(repoList.firstChild);
                     }
-
+                    //here i want to create a "li" and append it to the previuos "ul" so the repos of the user are listed in order.
                     let repositories = JSON.parse(userXHR.responseText).map(userRepositories => {
                         let listItems = document.createElement('li');
                         list.appendChild(listItems);
                         listItems.innerHTML = userRepositories.name;
-
+                        //here creating a new "ul" within each "li repos" for the new information of the repo (last commiter and avatar)
                         let commitList = document.createElement('ul')
                         listItems.appendChild(commitList);
-
+                        // a new request to get both the commiter and the avatar.
                         let commitsXHR = new XMLHttpRequest();
                         commitsXHR.onreadystatechange = () => {
                             if (commitsXHR.readyState === XMLHttpRequest.DONE) {
