@@ -1,5 +1,5 @@
 window.onload = function init() {
-// here i am creating the html tags (input, button, ul) and append them to (body)
+    // here i am creating the html tags (input, button, ul) and append them to (body)
     let search = document.createElement('input');
     document.body.appendChild(search);
     search.setAttribute('type', 'search');
@@ -13,12 +13,12 @@ window.onload = function init() {
     let list = document.createElement('ul');
     document.body.appendChild(list);
     list.setAttribute('id', 'repoList')
-// creating the "enter" event so that the reqest could start either by pressing enter or by clicking on submit
+    // creating the "enter" event so that the reqest could start either by pressing enter or by clicking on submit
     document.querySelector('#searchIn').addEventListener('keypress', function (enter) {
         var key = enter.which || enter.keyCode;
         if (key === 13) { githubUserSearch() }
     });
-// here is the button event
+    // here is the button event
     button.addEventListener('click', githubUserSearch)
 
     function githubUserSearch() {
@@ -79,9 +79,9 @@ window.onload = function init() {
                         }
 
                         commitsXHR.open('GET', 'https://api.github.com/repos/' + userName + '/' + userRepositories.name + '/commits', true);
-                        
-                        myXHR.setRequestHeader("Authorization", "Basic " + btoa("jalalalwani:yourToken");// this line is to solve the problem
-                                               // of the limit of authorised requests per hour, the tokenshould be secret in an separete file
+
+                        myXHR.setRequestHeader("Authorization", "Basic " + btoa("jalalalwani:yourToken"));// this line is to solve the problem
+                        // of the limit of authorised requests per hour, the tokenshould be secret in an separete file
                         commitsXHR.send();
                         console.log()
                     })
@@ -89,7 +89,7 @@ window.onload = function init() {
             }
         };
         userXHR.open('GET', repositoriesUrl, true);
-        myXHR.setRequestHeader("Authorization", "Basic " + btoa("jalalalwani:yourToken");
+        myXHR.setRequestHeader("Authorization", "Basic " + btoa("jalalalwani:yourToken"));
         userXHR.send();
         console.log()
     }
